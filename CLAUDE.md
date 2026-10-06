@@ -71,6 +71,8 @@ plataforma/android/                  AndroidManifest.xml, MainActivity.kt (Audio
 
 ## Decisiones
 
+- **Nombres que chocan con Flutter.** Flutter 3.47 agregó `RepeatMode` (repeating_animation_builder.dart) y rompió la compilación; el modo repetir se llama `PlayerRepeat`. Evitar nombres genéricos que Flutter pueda agregar. Si la compilación falla, el paso "Mostrar errores" del workflow publica los errores como anotaciones (se leen sin iniciar sesión en `api.github.com/repos/vperea95/Vixago-Player/check-runs/<job>/annotations`).
+
 - **Carpetas elegidas (pedido clave del usuario).** No se muestra todo el audio/video del celular (por ejemplo, audios de WhatsApp). `MainActivity` lee **todo** MediaStore (audio y video) con la carpeta de cada archivo (padre de `DATA`, o `RELATIVE_PATH` si no hay). `LibraryService` arma la lista de carpetas con su conteo y **solo muestra lo de las carpetas marcadas** (`music_folders` y `video_folders` en SharedPreferences). `FolderPicker` marca en rojo las carpetas de apps de mensajes (whatsapp, telegram, voice notes, recordings…). Por defecto no hay ninguna carpeta marcada. Se cambian en el menú → Carpetas de música / videos.
 - **Primera vez.** `setup_done` en SharedPreferences. Si falta, o si no hay permiso, la pantalla de carga lleva a `OnboardingScreen`.
 - **Permisos.** Android 13+: `READ_MEDIA_AUDIO` y `READ_MEDIA_VIDEO`; antes: `READ_EXTERNAL_STORAGE` (maxSdk 32). No se declara `READ_MEDIA_VISUAL_USER_SELECTED` (así Android 14 no ofrece "acceso parcial").

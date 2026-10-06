@@ -295,12 +295,12 @@ class _Controls extends StatelessWidget {
         ),
         IconButton(
           tooltip: switch (player.repeat) {
-            RepeatMode.off => s.repeatOff,
-            RepeatMode.all => s.repeatAll,
-            RepeatMode.one => s.repeatOne,
+            PlayerRepeat.off => s.repeatOff,
+            PlayerRepeat.all => s.repeatAll,
+            PlayerRepeat.one => s.repeatOne,
           },
-          color: player.repeat == RepeatMode.off ? null : active,
-          icon: Icon(player.repeat == RepeatMode.one ? Icons.repeat_one_rounded : Icons.repeat_rounded),
+          color: player.repeat == PlayerRepeat.off ? null : active,
+          icon: Icon(player.repeat == PlayerRepeat.one ? Icons.repeat_one_rounded : Icons.repeat_rounded),
           onPressed: player.cycleRepeat,
         ),
       ],

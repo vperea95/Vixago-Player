@@ -12,7 +12,7 @@ import '../models/media.dart';
 import '../services/equalizer_service.dart';
 import '../services/media_store.dart';
 
-enum RepeatMode { off, all, one }
+enum PlayerRepeat { off, all, one }
 
 /// Reproductor de música: cola, aleatorio, repetir y ecualizador. Es a la vez el
 /// AudioHandler de audio_service (notificación, pantalla de bloqueo, audífonos)
@@ -57,10 +57,10 @@ class MusicPlayer extends BaseAudioHandler with ChangeNotifier {
 
   bool get isPlaying => _player.playing;
   bool get shuffle => _player.shuffleModeEnabled;
-  RepeatMode get repeat => switch (_player.loopMode) {
-        LoopMode.off => RepeatMode.off,
-        LoopMode.all => RepeatMode.all,
-        LoopMode.one => RepeatMode.one,
+  PlayerRepeat get repeat => switch (_player.loopMode) {
+        LoopMode.off => PlayerRepeat.off,
+        LoopMode.all => PlayerRepeat.all,
+        LoopMode.one => PlayerRepeat.one,
       };
   Duration get position => _player.position;
   Duration? get duration => _player.duration;
