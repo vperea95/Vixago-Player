@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/strings.dart';
-import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 import 'services/preferences_service.dart';
 import 'theme.dart';
 
@@ -44,7 +44,8 @@ class VixagoPlayerApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        home: HomeScreen(preferences: preferences),
+        // La pantalla de carga prepara los servicios y luego abre el inicio.
+        home: SplashScreen(preferences: preferences),
       ),
     );
   }
