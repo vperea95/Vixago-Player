@@ -49,7 +49,22 @@ jobs:
           dart run flutter_native_splash:create
 
       - name: Compilar APK
-        run: flutter build apk --release --split-per-abi --target-platform android-arm,android-arm64
+        run: |
+          set -o pipefail
+          flutter build apk --release --split-per-abi --target-platform android-arm,android-arm64 2>&1 | tee build.log
+
+      # Si falla, publica los errores como anotaciones (se ven en el resumen sin iniciar sesión).
+      - name: Mostrar errores
+        if: failure()
+        run: |
+          touch build.log
+          grep -E "Error:|error:|^e: |What went wrong|FAILURE|Exception" -A4 build.log | head -80 > errores.txt || true
+          split -l 16 errores.txt parte_
+          for f in parte_*; do
+            [ -f "$f" ] || continue
+            msg=$(tr -d '\r' < "$f" | awk 'BEGIN{ORS="%0A"} {gsub(/%/,"%25"); print}')
+            echo "::error title=Error de compilación::$msg"
+          done
 
       - name: Publicar APK
         uses: actions/upload-artifact@v4
